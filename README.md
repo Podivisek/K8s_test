@@ -11,8 +11,7 @@ Vypracované zadání tech challenge
 - Základní příkazy kubectl pro správu a interakci s Kubernetes clusterem. Vysvětlete a ukažte, jak se používá.
 - Konfigurační soubory:
 - Jak napsat a používat konfigurační soubory v YAML pro vytváření a aktualizaci zdrojů v Kubernetes.
-- Services a Networking:
-- Jak Kubernetes provádí networking mezi pody a jak vytvářet a používat služby pro umožnění komunikace mezi pody a s vnějším světem.
+- Services a Networking: Jak Kubernetes provádí networking mezi pody a jak vytvářet a používat služby pro umožnění komunikace mezi pody a s vnějším světem.
 
 
 Úkol 2.

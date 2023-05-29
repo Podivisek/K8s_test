@@ -1,0 +1,81 @@
+Co je to Kubernetes (K8s) a proč se používá?
+
+- Kubernetes (K8s) je open-source systém pro automatizovanou orchestraci kontejnerů. 
+Jeho hlavním cílem je usnadnit nasazování, škálování a správu kontejnerizovaných aplikací. 
+K8s poskytuje robustní a flexibilní platformu pro běh kontejnerů, která zajišťuje jejich spolehlivost, škálovatelnost a správu zdrojů.
+
+
+Architektura Kubernetes:
+Znalost základních komponent Kubernetes jako jsou pods, services, deployments, replica sets.
+
+- Pods: Pod je nejmenší a základní jednotka běžící v Kubernetes. 
+Reprezentuje jednu nebo více kontejnerů sdílejících prostředky, jako jsou síťové rozhraní a uložiště. 
+Kontejnery uvnitř jednoho podu sdílejí stejný kontext, takže mohou snadno komunikovat mezi sebou přes localhost. 
+Pod je považován za atomickou entitu, což znamená, že se spouští a zastavuje jako celek.
+
+- Services: Service je abstrakce, která poskytuje stabilní síťovou adresu pro komunikaci s jedním nebo více pody. 
+Pomocí služeb mohou pody komunikovat mezi sebou bez znalosti konkrétních IP adres podů, protože služby mají přidělené doménové jméno, které se používá pro jejich oslovení. 
+Existují různé typy služeb, jako jsou ClusterIP, NodePort a LoadBalancer, které nabízejí různé způsoby komunikace a přístupu ke službám.
+
+- Deployments: Deployment je způsob, jak deklarativně definovat a řídit stav aplikace v Kubernetes. 
+Definuje požadovaný stav nasazení, včetně počtu replik podů, použitého obrazu, konfigurace a strategie nasazování. 
+Deploymenty umožňují snadné aktualizace aplikace bez výpadku služby pomocí postupného nasazování nových verzí a správy rolbacků.
+
+- Replica Sets: Replica Set je zodpovědný za zajištění požadovaného počtu replik podů. 
+Určuje, kolik kopií podu by mělo být spuštěno a udržuje tento stav i v případě selhání nebo odstranění podu. 
+Replica Set je používán Deploymentem jako součást mechanismu pro správu a škálování počtu podů.
+
+
+Vysvětlení rozdělení na master a worker nodes.
+
+- Master node: Je centrální řídící bod Kubernetes clusteru. 
+Obsahuje několik komponent, včetně kube-apiserver, kube-controller-manager a kube-scheduler. 
+Kube-apiserver poskytuje API pro interakci s clusterem, kube-controller-manager řídí stavovou logiku a kube-scheduler se stará o plánování nasazení podů na jednotlivé worker nodes.
+Worker node: Jsou to uzly (stroje), na kterých běží samotné kontejnery. 
+Každý worker node má nainstalovaný kontejnerový runtime (např. Docker) a také agenta nazývaného kubelet, který komunikuje s master nodem a provádí operace na daném uzlu. 
+Worker node také může obsahovat další komponenty, jako je kube-proxy pro správu síťového provozu.
+
+
+Kubectl:
+Základní příkazy kubectl pro správu a interakci s Kubernetes clusterem. Vysvětlete a ukažte, jak se používá.
+
+- Kubectl je příkazový řádek pro interakci s Kubernetes clusterem. 
+Pomocí kubectl můžeme provádět operace jako je vytváření, aktualizace a mazání zdrojů v clusteru. 
+Základní příkazy kubectl:
+
+kubectl get pods: Získání seznamu podů (běžících kontejnerů) v clusteru.
+kubectl create deployment <deployment-name> --image=<image-name>: Vytvoření nového nasazení (deploymentu) z obrazu kontejneru.
+kubectl scale deployment <deployment-name> --replicas=<number>: Změna počtu replik nasazení (škálování).
+kubectl delete pod <pod-name>: Smazání konkrétního podu.
+
+
+Konfigurační soubory:
+Jak napsat a používat konfigurační soubory v YAML pro vytváření a aktualizaci zdrojů v Kubernetes.
+
+Konfigurační soubory v YAML formátu se používají pro definici a specifikaci zdrojů v Kubernetes. 
+Příklad konfiguračního souboru pro vytvoření podu:
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-pod
+spec:
+  containers:
+  - name: my-container
+    image: nginx
+    ports:
+    - containerPort: 80
+
+Příkaz kubectl apply -f <konfigurační-soubor.yaml> aplikuje konfiguraci.
+
+
+Services a Networking:
+Jak Kubernetes provádí networking mezi pody a jak vytvářet a používat služby pro umožnění komunikace mezi pody a s vnějším světem.
+
+- Kubernetes provádí networking mezi pody pomocí interního virtuálního sítě. 
+Každý pod dostává vlastní IP adresu, což umožňuje komunikaci mezi pody v rámci clusteru.
+Služby v Kubernetes jsou používány pro umožnění komunikace mezi pody a s vnějším světem.
+Služby mají přidělené jméno a port, kterým se na ně mohou ostatní pody nebo vnější systémy připojit. 
+Existují různé typy služeb, například ClusterIP, NodePort a LoadBalancer, které nabízejí různé způsoby komunikace.
+Díky službám mohou pody komunikovat mezi sebou a s vnějším světem bez znalosti konkrétních IP adres. 
+Služby poskytují stabilní způsob komunikace a umožňují snadnou škálovatelnost a správu aplikací v Kubernetes clusteru.

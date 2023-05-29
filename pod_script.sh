@@ -63,15 +63,3 @@ done
 
 # Zobrazení výpisu podů s jejich stavem
 kubectl get pods -n $namespace
-
-# Nastavení limitu CPU na 200m pro všechny 50 podů
-kubectl set resources pod --all --limits=cpu=200m -n $namespace
-
-# Nastavení proměnné env:COMPlus = 1 u podů s labellem app=test_nepouzivat
-kubectl set env pod -l app=test_nepouzivat COMPlus=1 -n $namespace
-
-# Command změní nastavení omezení zdrojů na úrovni celého namespace ve všech podech
-kubectl apply -f resource-quota.yaml
-
-# Zobrazení výpisu podů s jejich stavem
-kubectl get pods -n $namespace
